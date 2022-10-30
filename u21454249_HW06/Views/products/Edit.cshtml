@@ -1,0 +1,72 @@
+﻿@*@model u21454249_HW06.Models.product
+
+    @{
+        ViewBag.Title = "Edit";
+    }*@
+<div class="form-group">
+    <label for="Id">Id</label>
+    <input type="text" class="form-control" id="id">
+</div>
+
+
+<div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name">
+</div>
+
+<div class="form-group">
+    <label for="category">Catergory</label>
+    <select class="form-control" id="catergorySelect">
+    </select><br />
+</div>
+
+<div class="form-group">
+    <label>Price</label>
+    <input type="number" class="form-control" id="price">
+</div>
+
+<div class="form-group">
+    <label class="col-form-label">Brand:</label>
+    <select id="brand-select" class="form-control">
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="Model">Model</label>
+    <input type="text" class="form-control" id="model">
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" onclick="Update()">Save changes</button>
+</div>
+
+@section Scripts {
+    <script>
+     function Update() {
+            console.log("update")
+
+
+            $.post({
+                url: "@Url.Action("Edits", "Products")",
+                method: "POST",
+                data: {
+
+                    product_id: parseInt($('#id').val()),
+                    product_name: $('#name').val(),
+                    category_id: parseInt($('#catergorySelect').val()),
+                    list_price: parseFloat($('#price').val()),
+                    brand_id: parseInt($('#brand-select').val()),
+                    model_year: parseInt($('#model').val())
+                },
+                success: (data, status) => {
+                    console.log(data);
+                    $('#exampleModal').modal('hide');
+
+                    GetProducts();
+
+                }
+            })
+        }
+    </script>
+}
